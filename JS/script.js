@@ -3,22 +3,23 @@ const user2 = document.getElementById("user2");
 let date = new Date().toLocaleDateString();
 
 const list = [
-  { user: "Cachaco", name: "Hernan Ramiro Betancur Osorio", id: "4002302" },
-  { user: "Bambi", name: "Overmar Diaz Castro", id: "10603346" },
-  { user: "CabezaPicha", name: "Otto Ivan Marrugo Suarez", id: "10603188" },
-  { user: "Paloma", name: "Luis Alberto Rico Carmona", id: "10602357" },
-  { user: "Carejarra", name: "Antonio Jimenez Rodriguez", id: "4002419" },
-  { user: "Tetus", name: "Dewis Moreno Cota", id: "4005046" },
+  { user: "Hernan", name: "Hernan Ramiro Betancur Osorio", id: "4002302" },
+  { user: "Over", name: "Overmar Diaz Castro", id: "10603346" },
+  { user: "Otto", name: "Otto Ivan Marrugo Suarez", id: "10603188" },
+  { user: "Rico", name: "Luis Alberto Rico Carmona", id: "10602357" },
+  { user: "Antonio", name: "Antonio Jimenez Rodriguez", id: "4002419" },
+  { user: "Dewis", name: "Dewis Moreno Cota", id: "4005046" },
   { user: "Landinez", name: "Diego Andres Landinez", id: "4004721" },
   { user: "Victor", name: "Victor Ramos Sanjuan", id: "4002540" },
-  { user: "MikiMartin", name: "German Blanco Estremor", id: "4003517" },
-  { user: "Carepiedra", name: "Gonzalo Arnedo Arnedo", id: "4004957" },
-  { user: "LaNiña", name: "Jefferson Paniza Rodriguez", id: "10602360" },
-  { user: "LaZorra", name: "Jose David Guardo Pajaro", id: "4004956" },
-  { user: "Pateloro", name: "Jose Luis Hernandez Castilla", id: "4004958" },
-  { user: "Cacholes", name: "Oscar Enrique canoles Pajaro", id: "4002316" },
-  { user: "KingKong", name: "Wilman Manrique Ramirez", id: "10603346" },
+  { user: "Dairo", name: "Dairo Perez Barrios", id: "10604658" },
+  { user: "Gonar", name: "Gonzalo Arnedo Arnedo", id: "4004957" },
+  { user: "Paniza", name: "Jefferson Paniza Rodriguez", id: "10602360" },
+  { user: "Guardo", name: "Jose David Guardo Pajaro", id: "4004956" },
+  { user: "Jose", name: "Jose Luis Hernandez Castilla", id: "4004958" },
+  { user: "Canoles", name: "Oscar Enrique canoles Pajaro", id: "4002316" },
+  { user: "Wilman", name: "Wilman Manrique Ramirez", id: "4002441" },
   { user: "Brandon", name: "Edil Brandon Lambis Medina", id: "10604034" },
+  { user: "Yeferson", name: "Yeferson Adrian Martinez Acevedo", id: "10604451" },
 ];
 
 function asamblea() {
