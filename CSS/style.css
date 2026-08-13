@@ -1,67 +1,172 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-    padding-top: 20px;
-    background-color: white;
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
+  padding-top: 20px;
+  background-color: #f5f5f5;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  min-height: 100vh;
 }
 
-.by{
-    text-align: right;
-    font-size: 10;
-    font-weight: 200;
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
 }
 
-.recuadro{
-    width: 20%;
-    height: 30px;
-    border: none;
-    border-radius: 0.3rem;
-    background-color: #88daed;
-    text-align: center;
+h1 {
+  font-weight: 700;
+  color: #242222;
+  margin-bottom: 24px;
+  font-size: 24px;
 }
 
-.btnPdf{
-    width: 20%;
-    height: 30px;
-    border: none;
-    background-color: #88daed;
-    border-radius: 0.3rem;
-}
-.btnPdf:hover{
-    background-color: #06cdfa;
+.form-group {
+  margin-bottom: 16px;
 }
 
-.print{
-    color: #242222;
-    background-color: white;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
 }
-.opal{
-    text-align: right;
-    font-weight: 600;
+
+.recuadro {
+  width: 100%;
+  max-width: 300px;
+  height: 40px;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #88daed;
+  text-align: center;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 0 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
-.dest{
-    text-align: left;
+
+.recuadro:hover {
+  background-color: #6ecfe6;
 }
-.text{
-    color: black;
-    text-align: justify;
-    font-size: 20px;
-    font-weight: 700;
+
+.recuadro:focus {
+  outline: 2px solid #06cdfa;
+  outline-offset: 2px;
+}
+
+.botones {
+  margin: 24px 0;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btnPdf {
+  width: 100%;
+  max-width: 140px;
+  height: 40px;
+  border: none;
+  background-color: #88daed;
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btnPdf:hover {
+  background-color: #06cdfa;
+  transform: translateY(-1px);
+}
+
+.btnPdf:active {
+  transform: translateY(0);
+}
+
+.btnPdf:focus {
+  outline: 2px solid #06cdfa;
+  outline-offset: 2px;
+}
+
+#contenido {
+  margin-top: 24px;
+}
+
+.print {
+  color: #242222;
+  background-color: white;
+  width: 100%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 32px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  min-height: 200px;
+}
+
+.print:empty::before {
+  content: "Aquí se mostrará la vista previa del documento...";
+  color: #999;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.opal {
+  text-align: right;
+  font-weight: 600;
+  margin: 4px 0;
+}
+
+.dest {
+  text-align: left;
+  font-weight: 600;
+  margin: 8px 0;
+}
+
+.text {
+  color: black;
+  text-align: justify;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.7;
+  margin: 16px 0;
+}
+
+.by {
+  text-align: right;
+  font-size: 10px;
+  font-weight: 400;
+  display: block;
+  color: #666;
+  margin-top: 16px;
 }
 
 @media print {
-    body * {
-        visibility: hidden;
-    }
-    #contenido, #contenido * {
-        visibility: visible;
-    }
-    #contenidoParaImprimir {
-        position: absolute;
-        left: 0;
-        top: 0;
-    }
+  body * {
+    visibility: hidden;
+  }
+  #contenido, #contenido * {
+    visibility: visible;
+  }
+  #contenido {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+  .print {
+    width: 100%;
+    padding: 40px;
+    box-shadow: none;
+    border-radius: 0;
+  }
 }
