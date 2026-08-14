@@ -49,71 +49,66 @@ function buildHTML(tipo, p1, p2, date) {
   if (tipo === "asamblea") {
     return `
       <div class="print">
-        <h3 class="opal">Bolívar - Cartagena de Indias</h3>
-        <h3 class="opal">${date}</h3>
-        <br><br><br><br><br><br>
-        <h3 class="dest">Sr(es)<br/>SINTRAPETROCOL</h3><br><br><br>
+        <p class="opal">Bolívar - Cartagena de Indias</p>
+        <p class="opal">${date}</p>
+        <br><br>
+        <p class="dest">Sr(es) SINTRAPETROCOL</p>
+        <br>
         <p class="text">
           Yo, ${p1.name}, con código de identificación ${p1.id}, en calidad de miembro de SINTRAPETROCOL, con la presente otorgo poder de representación sindical a:<br><br>
           Nombre del Representante Sindical: ${p2.name}<br>
           Número de código del Representante: ${p2.id}<br><br>
           El representante sindical mencionado anteriormente tiene el poder y la autoridad para actuar en mi nombre y en representación del sindicato en todos los asuntos relacionados con la representación sindical.<br><br>
           Este poder de representación sindical es válido a partir de la fecha de su firma y permanece en vigor durante la asamblea a la que haya lugar.
-        </p><br><br>
-        <h3 class="dest">
-          Cordialmente<br><br><br><br><br>
+        </p>
+        <br><br><br>
+        <p class="dest">
+          Cordialmente<br><br><br><br>
           _____________________________<br>
           Firma<br>${p1.name}<br>
           C.c.
-        </h3><br><br><br><br>
+        </p>
+        <br><br>
         <i class="by">By AL</i>
       </div>`;
   } else {
     return `
       <div class="print">
-        <h3 class="opal">Bolívar - Cartagena de Indias</h3>
-        <h3 class="opal">${date}</h3>
-        <br><br><br><br><br><br>
-        <h3 class="dest">Sr(es)<br/>SINTRAPETROCOL</h3><br><br><br><br><br>
+        <p class="opal">Bolívar - Cartagena de Indias</p>
+        <p class="opal">${date}</p>
+        <br><br>
+        <p class="dest">Sr(es) SINTRAPETROCOL</p>
+        <br>
         <p class="text">
           Yo, ${p1.name}, identificado con el número de código ${p1.id}, por medio del presente documento otorgo poder especial, amplio y suficiente a ${p2.name}, identificado con el código ${p2.id}, para que en mi nombre y representación pueda reclamar la valera de almuerzo del mes correspondiente.
-        </p><br><br><br>
-        <h3 class="dest">
-          Cordialmente<br><br><br><br><br><br><br>
+        </p>
+        <br><br><br>
+        <p class="dest">
+          Cordialmente<br><br><br><br><br>
           _____________________________<br>
           Firma<br>${p1.name}<br>
           C.c.
-        </h3><br><br><br><br>
+        </p>
+        <br><br>
         <i class="by">By AL</i>
       </div>`;
   }
 }
 
 function renderDocument(tipo) {
-  console.log("Botón clickeado:", tipo);
-
-  if (!validateSelection()) {
-    console.log("Validación fallida");
-    return;
-  }
+  if (!validateSelection()) return;
 
   const p1 = getUserData(poderdante.value);
   const p2 = getUserData(apoderado.value);
   const date = getDate();
 
-  console.log("Generando documento para:", p1.name, "->", p2.name);
-
   const html = buildHTML(tipo, p1, p2, date);
   document.getElementById("print").innerHTML = html;
 
-  // Esperar a que el navegador renderice el DOM antes de imprimir
   setTimeout(() => {
-    console.log("Llamando window.print()...");
     window.print();
   }, 300);
 }
 
 document.getElementById("asamblea").addEventListener("click", () => renderDocument("asamblea"));
 document.getElementById("valeras").addEventListener("click", () => renderDocument("valeras"));
-
-console.log("Script cargado correctamente. Total usuarios:", list.length);
