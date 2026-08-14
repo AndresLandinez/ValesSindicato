@@ -8,7 +8,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" />
     <link rel="stylesheet" href="./CSS/style.css" />
   <base target="_blank">
 </head>
@@ -20,23 +20,6 @@
         <label for="poderdante">Poderdante</label>
         <select class="recuadro" id="poderdante">
           <option value="">Seleccione...</option>
-          <option value="Hernan">Hernan Betancur</option>
-          <option value="Otto">Otto Marrugo</option>
-          <option value="Rico">Luis Rico</option>
-          <option value="Antonio">A. Jimenez</option>
-          <option value="Dewis">Dewis Moreno</option>
-          <option value="Landinez">A. Landinez</option>
-          <option value="Victor">Victor Ramos</option>
-          <option value="Dairo">Dairo Perez</option>
-          <option value="Gonar">Gonzalo Arnedo</option>
-          <option value="Paniza">J. Paniza</option>
-          <option value="Guardo">Jose Guardo</option>
-          <option value="Jose">Jose Hernandez</option>
-          <option value="Canoles">Oscar Canoles</option>
-          <option value="Wilman">W. Manrique</option>
-          <option value="Over">Overmar Diaz</option>
-          <option value="Brandon">Brandon Lambis</option>
-          <option value="Yeferson">Yeferson Martinez</option>
         </select>
       </div>
 
@@ -44,35 +27,70 @@
         <label for="apoderado">Apoderado</label>
         <select class="recuadro" id="apoderado">
           <option value="">Seleccione...</option>
-          <option value="Hernan">Hernan Betancur</option>
-          <option value="Otto">Otto Marrugo</option>
-          <option value="Rico">Luis Rico</option>
-          <option value="Antonio">A. Jimenez</option>
-          <option value="Dewis">Dewis Moreno</option>
-          <option value="Landinez">A. Landinez</option>
-          <option value="Victor">Victor Ramos</option>
-          <option value="Dairo">Dairo Perez</option>
-          <option value="Gonar">Gonzalo Arnedo</option>
-          <option value="Paniza">J. Paniza</option>
-          <option value="Guardo">Jose Guardo</option>
-          <option value="Jose">Jose Hernandez</option>
-          <option value="Canoles">Oscar Canoles</option>
-          <option value="Wilman">W. Manrique</option>
-          <option value="Over">Overmar Diaz</option>
-          <option value="Brandon">Brandon Lambis</option>
-          <option value="Yeferson">Yeferson Martinez</option>
         </select>
       </div>
 
       <div class="botones">
         <button type="button" class="btnPdf" id="asamblea">Asamblea</button>
         <button type="button" class="btnPdf" id="valeras">Valeras</button>
+        <button type="button" class="btnAdmin" id="btnAdmin">Admin</button>
       </div>
 
       <div id="contenido">
         <div id="print" class="print" aria-live="polite"></div>
       </div>
     </main>
+
+    <!-- Modal de Login Admin -->
+    <div id="modalLogin" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeLogin">&times;</span>
+        <h2>Acceso Administrador</h2>
+        <div class="form-group">
+          <label for="adminUser">Usuario</label>
+          <input type="text" id="adminUser" class="input-field" placeholder="Usuario" />
+        </div>
+        <div class="form-group">
+          <label for="adminPass">Contraseña</label>
+          <input type="password" id="adminPass" class="input-field" placeholder="Contraseña" />
+        </div>
+        <button type="button" class="btnPdf" id="btnLogin">Ingresar</button>
+        <p id="loginError" class="error-msg"></p>
+      </div>
+    </div>
+
+    <!-- Panel de Administración -->
+    <div id="modalAdmin" class="modal">
+      <div class="modal-content modal-large">
+        <span class="close" id="closeAdmin">&times;</span>
+        <h2>Panel de Administración</h2>
+
+        <div class="admin-section">
+          <h3>Agregar Nuevo Miembro</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="newUserKey">Código corto (sin espacios)</label>
+              <input type="text" id="newUserKey" class="input-field" placeholder="Ej: JuanP" />
+            </div>
+            <div class="form-group">
+              <label for="newUserName">Nombre completo</label>
+              <input type="text" id="newUserName" class="input-field" placeholder="Ej: Juan Perez" />
+            </div>
+            <div class="form-group">
+              <label for="newUserId">Número de código</label>
+              <input type="text" id="newUserId" class="input-field" placeholder="Ej: 1234567" />
+            </div>
+          </div>
+          <button type="button" class="btnPdf" id="btnAddUser">Agregar Miembro</button>
+          <p id="addUserMsg" class="success-msg"></p>
+        </div>
+
+        <div class="admin-section">
+          <h3>Miembros Actuales</h3>
+          <div id="adminUserList" class="user-list"></div>
+        </div>
+      </div>
+    </div>
 
     <script src="./JS/script.js"></script>
   </body>
