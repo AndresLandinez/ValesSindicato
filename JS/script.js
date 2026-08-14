@@ -1,7 +1,5 @@
-const poderdante = document.getElementById("poderdante");
-const apoderado = document.getElementById("apoderado");
-
-const list = [
+// ========== DATOS INICIALES ==========
+const DEFAULT_USERS = [
   { user: "Hernan", name: "Hernan Ramiro Betancur Osorio", id: "4002302" },
   { user: "Over", name: "Overmar Diaz Castro", id: "10603346" },
   { user: "Otto", name: "Otto Ivan Marrugo Suarez", id: "10603188" },
@@ -20,6 +18,72 @@ const list = [
   { user: "Brandon", name: "Edil Brandon Lambis Medina", id: "10604034" },
   { user: "Yeferson", name: "Yeferson Adrian Martinez Acevedo", id: "10604451" },
 ];
+
+// Credenciales de administrador
+const ADMIN_CREDENTIALS = {
+  user: "admin",
+  pass: "sindicato2024"
+};
+
+// ========== ESTADO ==========
+let list = [];
+
+// ========== INICIALIZACIÓN ==========
+function init() {
+  const saved = localStorage.getItem("sindicato_users");
+  if (saved) {
+    try {
+      list = JSON.parse(saved);
+    } catch (e) {
+      list = [...DEFAULT_USERS];
+      saveUsers();
+    }
+  } else {
+    list = [...DEFAULT_USERS];
+    saveUsers();
+  }
+  populateSelects();
+}
+
+function saveUsers() {
+  localStorage.setItem("sindicato_users", JSON.stringify(list));
+}
+
+function populateSelects() {
+  const sel1 = document.getElementById("poderdante");
+  const sel2 = document.getElementById("apoderado");
+
+  // Guardar valores actuales
+  const val1 = sel1.value;
+  const val2 = sel2.value;
+
+  // Limpiar excepto la primera opción
+  sel1.innerHTML = '<option value="">Seleccione...</option>';
+  sel2.innerHTML = '<option value="">Seleccione...</option>';
+
+  // Ordenar alfabéticamente por nombre
+  const sorted = [...list].sort((a, b) => a.name.localeCompare(b.name));
+
+  sorted.forEach((item) => {
+    const opt1 = document.createElement("option");
+    opt1.value = item.user;
+    opt1.textContent = item.name;
+    sel1.appendChild(opt1);
+
+    const opt2 = document.createElement("option");
+    opt2.value = item.user;
+    opt2.textContent = item.name;
+    sel2.appendChild(opt2);
+  });
+
+  // Restaurar valores si aún existen
+  if (list.find(u => u.user === val1)) sel1.value = val1;
+  if (list.find(u => u.user === val2)) sel2.value = val2;
+}
+
+// ========== FUNCIONES DEL DOCUMENTO ==========
+const poderdante = document.getElementById("poderdante");
+const apoderado = document.getElementById("apoderado");
 
 function getDate() {
   return new Date().toLocaleDateString("es-CO", {
@@ -112,3 +176,150 @@ function renderDocument(tipo) {
 
 document.getElementById("asamblea").addEventListener("click", () => renderDocument("asamblea"));
 document.getElementById("valeras").addEventListener("click", () => renderDocument("valeras"));
+
+// ========== MODALES ADMIN ==========
+const modalLogin = document.getElementById("modalLogin");
+const modalAdmin = document.getElementById("modalAdmin");
+const btnAdmin = document.getElementById("btnAdmin");
+const closeLogin = document.getElementById("closeLogin");
+const closeAdmin = document.getElementById("closeAdmin");
+const btnLogin = document.getElementById("btnLogin");
+const btnAddUser = document.getElementById("btnAddUser");
+
+function openModal(modal) {
+  modal.style.display = "block";
+}
+
+function closeModal(modal) {
+  modal.style.display = "none";
+}
+
+btnAdmin.addEventListener("click", () => {
+  openModal(modalLogin);
+  document.getElementById("adminUser").value = "";
+  document.getElementById("adminPass").value = "";
+  document.getElementById("loginError").textContent = "";
+  document.getElementById("adminUser").focus();
+});
+
+closeLogin.addEventListener("click", () => closeModal(modalLogin));
+closeAdmin.addEventListener("click", () => closeModal(modalAdmin));
+
+window.addEventListener("click", (e) => {
+  if (e.target === modalLogin) closeModal(modalLogin);
+  if (e.target === modalAdmin) closeModal(modalAdmin);
+});
+
+btnLogin.addEventListener("click", () => {
+  const user = document.getElementById("adminUser").value.trim();
+  const pass = document.getElementById("adminPass").value;
+
+  if (user === ADMIN_CREDENTIALS.user && pass === ADMIN_CREDENTIALS.pass) {
+    closeModal(modalLogin);
+    openModal(modalAdmin);
+    renderAdminList();
+    clearAddForm();
+  } else {
+    document.getElementById("loginError").textContent = "Usuario o contraseña incorrectos.";
+  }
+});
+
+// Enter en contraseña también login
+document.getElementById("adminPass").addEventListener("keypress", (e) => {
+  if (e.key === "Enter") btnLogin.click();
+});
+
+// ========== ADMIN: LISTAR USUARIOS ==========
+function renderAdminList() {
+  const container = document.getElementById("adminUserList");
+  container.innerHTML = "";
+
+  const sorted = [...list].sort((a, b) => a.name.localeCompare(b.name));
+
+  sorted.forEach((item) => {
+    const div = document.createElement("div");
+    div.className = "user-item";
+    div.innerHTML = `
+      <div class="user-info">
+        <strong>${item.name}</strong>
+        <span>Código: ${item.user} | ID: ${item.id}</span>
+      </div>
+      <button class="btnDelete" data-user="${item.user}">Eliminar</button>
+    `;
+    container.appendChild(div);
+  });
+
+  // Asignar eventos a botones eliminar
+  container.querySelectorAll(".btnDelete").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const userKey = btn.getAttribute("data-user");
+      if (confirm("¿Está seguro de eliminar a este miembro?")) {
+        deleteUser(userKey);
+      }
+    });
+  });
+}
+
+function deleteUser(userKey) {
+  list = list.filter((u) => u.user !== userKey);
+  saveUsers();
+  populateSelects();
+  renderAdminList();
+}
+
+// ========== ADMIN: AGREGAR USUARIO ==========
+function clearAddForm() {
+  document.getElementById("newUserKey").value = "";
+  document.getElementById("newUserName").value = "";
+  document.getElementById("newUserId").value = "";
+  document.getElementById("addUserMsg").textContent = "";
+}
+
+btnAddUser.addEventListener("click", () => {
+  const key = document.getElementById("newUserKey").value.trim();
+  const name = document.getElementById("newUserName").value.trim();
+  const id = document.getElementById("newUserId").value.trim();
+  const msg = document.getElementById("addUserMsg");
+
+  // Validaciones
+  if (!key || !name || !id) {
+    msg.textContent = "Complete todos los campos.";
+    msg.className = "error-msg";
+    return;
+  }
+
+  if (/\s/.test(key)) {
+    msg.textContent = "El código corto no debe contener espacios.";
+    msg.className = "error-msg";
+    return;
+  }
+
+  if (list.find((u) => u.user === key)) {
+    msg.textContent = "Ya existe un miembro con ese código corto.";
+    msg.className = "error-msg";
+    return;
+  }
+
+  if (list.find((u) => u.id === id)) {
+    msg.textContent = "Ya existe un miembro con ese número de código.";
+    msg.className = "error-msg";
+    return;
+  }
+
+  // Agregar
+  list.push({ user: key, name: name, id: id });
+  saveUsers();
+  populateSelects();
+  renderAdminList();
+  clearAddForm();
+
+  msg.textContent = "Miembro agregado correctamente.";
+  msg.className = "success-msg";
+
+  setTimeout(() => {
+    msg.textContent = "";
+  }, 3000);
+});
+
+// ========== INICIAR ==========
+init();
