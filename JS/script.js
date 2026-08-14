@@ -1,25 +1,24 @@
 // ========== DATOS INICIALES ==========
 const DEFAULT_USERS = [
   { user: "Hernan", name: "Hernan Ramiro Betancur Osorio", id: "4002302" },
-  { user: "Over", name: "Overmar Diaz Castro", id: "10603346" },
-  { user: "Otto", name: "Otto Ivan Marrugo Suarez", id: "10603188" },
-  { user: "Rico", name: "Luis Alberto Rico Carmona", id: "10602357" },
-  { user: "Antonio", name: "Antonio Jimenez Rodriguez", id: "4002419" },
-  { user: "Dewis", name: "Dewis Moreno Cota", id: "4005046" },
-  { user: "Landinez", name: "Diego Andres Landinez", id: "4004721" },
-  { user: "Victor", name: "Victor Ramos Sanjuan", id: "4002540" },
-  { user: "Dairo", name: "Dairo Perez Barrios", id: "10604658" },
-  { user: "Gonar", name: "Gonzalo Arnedo Arnedo", id: "4004957" },
-  { user: "Paniza", name: "Jefferson Paniza Rodriguez", id: "10602360" },
-  { user: "Guardo", name: "Jose David Guardo Pajaro", id: "4004956" },
-  { user: "Jose", name: "Jose Luis Hernandez Castilla", id: "4004958" },
-  { user: "Canoles", name: "Oscar Enrique Canoles Pajaro", id: "4002316" },
-  { user: "Wilman", name: "Wilman Manrique Ramirez", id: "4002441" },
-  { user: "Brandon", name: "Edil Brandon Lambis Medina", id: "10604034" },
+  { user: "Over",  name: "Overmar Diaz Castro",                id: "10603346" },
+  { user: "Otto",  name: "Otto Ivan Marrugo Suarez",           id: "10603188" },
+  { user: "Rico",  name: "Luis Alberto Rico Carmona",          id: "10602357" },
+  { user: "Antonio", name: "Antonio Jimenez Rodriguez",        id: "4002419" },
+  { user: "Dewis", name: "Dewis Moreno Cota",                  id: "4005046" },
+  { user: "Landinez", name: "Diego Andres Landinez",           id: "4004721" },
+  { user: "Victor", name: "Victor Ramos Sanjuan",             id: "4002540" },
+  { user: "Dairo", name: "Dairo Perez Barrios",                id: "10604658" },
+  { user: "Gonar", name: "Gonzalo Arnedo Arnedo",             id: "4004957" },
+  { user: "Paniza", name: "Jefferson Paniza Rodriguez",        id: "10602360" },
+  { user: "Guardo", name: "Jose David Guardo Pajaro",          id: "4004956" },
+  { user: "Jose",  name: "Jose Luis Hernandez Castilla",      id: "4004958" },
+  { user: "Canoles", name: "Oscar Enrique Canoles Pajaro",    id: "4002316" },
+  { user: "Wilman", name: "Wilman Manrique Ramirez",           id: "4002441" },
+  { user: "Brandon", name: "Edil Brandon Lambis Medina",       id: "10604034" },
   { user: "Yeferson", name: "Yeferson Adrian Martinez Acevedo", id: "10604451" },
 ];
 
-// Credenciales de administrador
 const ADMIN_CREDENTIALS = {
   user: "admin",
   pass: "sindicato2024"
@@ -52,49 +51,42 @@ function saveUsers() {
 function populateSelects() {
   const sel1 = document.getElementById("poderdante");
   const sel2 = document.getElementById("apoderado");
-
-  // Guardar valores actuales
   const val1 = sel1.value;
   const val2 = sel2.value;
 
-  // Limpiar excepto la primera opción
   sel1.innerHTML = '<option value="">Seleccione...</option>';
   sel2.innerHTML = '<option value="">Seleccione...</option>';
 
-  // Ordenar alfabéticamente por nombre
   const sorted = [...list].sort((a, b) => a.name.localeCompare(b.name));
 
   sorted.forEach((item) => {
     const opt1 = document.createElement("option");
     opt1.value = item.user;
-    opt1.textContent = item.user;
+    opt1.textContent = item.user;   // CÓDIGO CORTO visible
     sel1.appendChild(opt1);
 
     const opt2 = document.createElement("option");
     opt2.value = item.user;
-    opt2.textContent = item.user;
+    opt2.textContent = item.user;   // CÓDIGO CORTO visible
     sel2.appendChild(opt2);
   });
 
-  // Restaurar valores si aún existen
   if (list.find(u => u.user === val1)) sel1.value = val1;
   if (list.find(u => u.user === val2)) sel2.value = val2;
 }
 
-// ========== FUNCIONES DEL DOCUMENTO ==========
+// ========== DOCUMENTOS ==========
 const poderdante = document.getElementById("poderdante");
-const apoderado = document.getElementById("apoderado");
+const apoderado  = document.getElementById("apoderado");
 
 function getDate() {
   return new Date().toLocaleDateString("es-CO", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+    year: "numeric", month: "long", day: "numeric"
   });
 }
 
 function getUserData(value) {
-  return list.find((item) => item.user === value);
+  return list.find(item => item.user === value);
 }
 
 function validateSelection() {
@@ -166,12 +158,9 @@ function renderDocument(tipo) {
   const p2 = getUserData(apoderado.value);
   const date = getDate();
 
-  const html = buildHTML(tipo, p1, p2, date);
-  document.getElementById("print").innerHTML = html;
+  document.getElementById("print").innerHTML = buildHTML(tipo, p1, p2, date);
 
-  setTimeout(() => {
-    window.print();
-  }, 300);
+  setTimeout(() => window.print(), 300);
 }
 
 document.getElementById("asamblea").addEventListener("click", () => renderDocument("asamblea"));
@@ -180,21 +169,11 @@ document.getElementById("valeras").addEventListener("click", () => renderDocumen
 // ========== MODALES ADMIN ==========
 const modalLogin = document.getElementById("modalLogin");
 const modalAdmin = document.getElementById("modalAdmin");
-const btnAdmin = document.getElementById("btnAdmin");
-const closeLogin = document.getElementById("closeLogin");
-const closeAdmin = document.getElementById("closeAdmin");
-const btnLogin = document.getElementById("btnLogin");
-const btnAddUser = document.getElementById("btnAddUser");
 
-function openModal(modal) {
-  modal.style.display = "block";
-}
+function openModal(modal) { modal.style.display = "block"; }
+function closeModal(modal) { modal.style.display = "none"; }
 
-function closeModal(modal) {
-  modal.style.display = "none";
-}
-
-btnAdmin.addEventListener("click", () => {
+document.getElementById("btnAdmin").addEventListener("click", () => {
   openModal(modalLogin);
   document.getElementById("adminUser").value = "";
   document.getElementById("adminPass").value = "";
@@ -202,15 +181,15 @@ btnAdmin.addEventListener("click", () => {
   document.getElementById("adminUser").focus();
 });
 
-closeLogin.addEventListener("click", () => closeModal(modalLogin));
-closeAdmin.addEventListener("click", () => closeModal(modalAdmin));
+document.getElementById("closeLogin").addEventListener("click", () => closeModal(modalLogin));
+document.getElementById("closeAdmin").addEventListener("click", () => closeModal(modalAdmin));
 
 window.addEventListener("click", (e) => {
   if (e.target === modalLogin) closeModal(modalLogin);
   if (e.target === modalAdmin) closeModal(modalAdmin);
 });
 
-btnLogin.addEventListener("click", () => {
+document.getElementById("btnLogin").addEventListener("click", () => {
   const user = document.getElementById("adminUser").value.trim();
   const pass = document.getElementById("adminPass").value;
 
@@ -224,12 +203,11 @@ btnLogin.addEventListener("click", () => {
   }
 });
 
-// Enter en contraseña también login
 document.getElementById("adminPass").addEventListener("keypress", (e) => {
-  if (e.key === "Enter") btnLogin.click();
+  if (e.key === "Enter") document.getElementById("btnLogin").click();
 });
 
-// ========== ADMIN: LISTAR USUARIOS ==========
+// ========== ADMIN: LISTAR / ELIMINAR ==========
 function renderAdminList() {
   const container = document.getElementById("adminUserList");
   container.innerHTML = "";
@@ -249,25 +227,19 @@ function renderAdminList() {
     container.appendChild(div);
   });
 
-  // Asignar eventos a botones eliminar
-  container.querySelectorAll(".btnDelete").forEach((btn) => {
+  container.querySelectorAll(".btnDelete").forEach(btn => {
     btn.addEventListener("click", () => {
-      const userKey = btn.getAttribute("data-user");
       if (confirm("¿Está seguro de eliminar a este miembro?")) {
-        deleteUser(userKey);
+        list = list.filter(u => u.user !== btn.getAttribute("data-user"));
+        saveUsers();
+        populateSelects();
+        renderAdminList();
       }
     });
   });
 }
 
-function deleteUser(userKey) {
-  list = list.filter((u) => u.user !== userKey);
-  saveUsers();
-  populateSelects();
-  renderAdminList();
-}
-
-// ========== ADMIN: AGREGAR USUARIO ==========
+// ========== ADMIN: AGREGAR ==========
 function clearAddForm() {
   document.getElementById("newUserKey").value = "";
   document.getElementById("newUserName").value = "";
@@ -275,38 +247,33 @@ function clearAddForm() {
   document.getElementById("addUserMsg").textContent = "";
 }
 
-btnAddUser.addEventListener("click", () => {
-  const key = document.getElementById("newUserKey").value.trim();
+document.getElementById("btnAddUser").addEventListener("click", () => {
+  const key  = document.getElementById("newUserKey").value.trim();
   const name = document.getElementById("newUserName").value.trim();
-  const id = document.getElementById("newUserId").value.trim();
-  const msg = document.getElementById("addUserMsg");
+  const id   = document.getElementById("newUserId").value.trim();
+  const msg  = document.getElementById("addUserMsg");
 
-  // Validaciones
   if (!key || !name || !id) {
     msg.textContent = "Complete todos los campos.";
     msg.className = "error-msg";
     return;
   }
-
   if (/\s/.test(key)) {
     msg.textContent = "El código corto no debe contener espacios.";
     msg.className = "error-msg";
     return;
   }
-
-  if (list.find((u) => u.user === key)) {
+  if (list.find(u => u.user === key)) {
     msg.textContent = "Ya existe un miembro con ese código corto.";
     msg.className = "error-msg";
     return;
   }
-
-  if (list.find((u) => u.id === id)) {
+  if (list.find(u => u.id === id)) {
     msg.textContent = "Ya existe un miembro con ese número de código.";
     msg.className = "error-msg";
     return;
   }
 
-  // Agregar
   list.push({ user: key, name: name, id: id });
   saveUsers();
   populateSelects();
@@ -315,10 +282,7 @@ btnAddUser.addEventListener("click", () => {
 
   msg.textContent = "Miembro agregado correctamente.";
   msg.className = "success-msg";
-
-  setTimeout(() => {
-    msg.textContent = "";
-  }, 3000);
+  setTimeout(() => msg.textContent = "", 3000);
 });
 
 // ========== INICIAR ==========
