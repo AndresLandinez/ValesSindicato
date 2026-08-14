@@ -150,23 +150,38 @@ h1 {
   margin-top: 16px;
 }
 
+/* === IMPRESIÓN === */
 @media print {
+  /* Ocultar TODO excepto el contenido del documento */
   body * {
     visibility: hidden;
   }
-  #contenido, #contenido * {
+
+  #contenido,
+  #contenido * {
     visibility: visible;
   }
+
   #contenido {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
   }
+
   .print {
     width: 100%;
-    padding: 40px;
+    max-width: 100%;
+    padding: 20px 30px;
     box-shadow: none;
     border-radius: 0;
+    margin: 0;
+  }
+
+  /* Ocultar elementos que no deben salir en la impresión */
+  h1,
+  .form-group,
+  .botones {
+    display: none !important;
   }
 }
