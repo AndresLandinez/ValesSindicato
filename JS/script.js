@@ -67,12 +67,12 @@ function populateSelects() {
   sorted.forEach((item) => {
     const opt1 = document.createElement("option");
     opt1.value = item.user;
-    opt1.textContent = item.name;
+    opt1.textContent = item.user;
     sel1.appendChild(opt1);
 
     const opt2 = document.createElement("option");
     opt2.value = item.user;
-    opt2.textContent = item.name;
+    opt2.textContent = item.user;
     sel2.appendChild(opt2);
   });
 
