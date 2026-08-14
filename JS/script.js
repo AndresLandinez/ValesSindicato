@@ -203,8 +203,11 @@ document.getElementById("btnLogin").addEventListener("click", () => {
   }
 });
 
-document.getElementById("adminPass").addEventListener("keypress", (e) => {
-  if (e.key === "Enter") document.getElementById("btnLogin").click();
+document.getElementById("adminPass").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    document.getElementById("btnLogin").click();
+  }
 });
 
 // ========== ADMIN: LISTAR / ELIMINAR ==========
