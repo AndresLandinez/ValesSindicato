@@ -156,7 +156,7 @@ h1 {
 @media print {
   @page {
     size: letter;
-    margin: 15mm;
+    margin: 22mm 20mm 25mm 20mm;
   }
 
   body * {
@@ -173,6 +173,10 @@ h1 {
     left: 0;
     top: 0;
     width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .print {
@@ -182,29 +186,33 @@ h1 {
     box-shadow: none;
     border-radius: 0;
     margin: 0;
-    font-size: 13px;
-    line-height: 1.4;
+    font-size: 14px;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 230mm;
   }
 
   .opal {
-    font-size: 12px;
-    margin: 1px 0;
-  }
-
-  .dest {
-    font-size: 12px;
+    font-size: 13px;
     margin: 2px 0;
   }
 
-  .text {
+  .dest {
     font-size: 13px;
-    line-height: 1.4;
     margin: 4px 0;
   }
 
+  .text {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 8px 0;
+  }
+
   .by {
-    font-size: 8px;
-    margin-top: 4px;
+    font-size: 9px;
+    margin-top: 8px;
   }
 
   h1,
